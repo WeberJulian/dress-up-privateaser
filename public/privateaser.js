@@ -12,9 +12,9 @@ const PRIVATEASER = (() => {
    */
   const getBar = () => {
     return {
-      'name': document.querySelector('#bar .name').value,
-      'pricePerHour': document.querySelector('#bar .price-by-hour').value,
-      'pricePerPerson': document.querySelector('#bar .price-by-person').value
+      'name': document.getElementById("bar-name").value,
+      'pricePerHour': document.getElementById("price-hour").value,
+      'pricePerPerson': document.getElementById('price-person').value
     };
   };
 

@@ -62,6 +62,7 @@
   const goResult = document.querySelector('#goResult');
 
   goResult.addEventListener('click', function onClick () {
+    console.log("go result")
     document.getElementById("booker-stepper").className = 'completed'
     document.getElementById("booker-container").style.display = 'none'
     document.getElementById("result-stepper").className = 'active'
@@ -69,12 +70,38 @@
 
     const bar = PRIVATEASER.getBar();
     const time = document.getElementById('form-time').value;
-    const persons = document.querySelector('form-persons').value;
-    const option = document.querySelector('form-option').checked;
+    const persons = document.getElementById('form-persons').value;
+    const option = document.getElementById('form-option').checked;
     const actors = PRIVATEASER.payActors(bar, time, persons, option);
 
-    render(actors);
+    var div = document.getElementById('alert');
+
+    div.innerHTML += actors[0].amount.toString() + " &euro;";
+
+    console.log(actors)
+    var chart = new CanvasJS.Chart("chartContainer", {
+      animationEnabled: true,
+      title: {
+        text: "Distribution of the price"
+      },
+      data: [{
+        type: "pie",
+        startAngle: 240,
+        yValueFormatString: "##0.00 &euro;",
+        indexLabel: "{label} {y}",
+        dataPoints: [
+          {y: actors[1].amount, label: "bar"},
+          {y: actors[2].amount, label: "insurance"},
+          {y: actors[3].amount, label: "treasury"},
+          {y: actors[4].amount, label: "privateaser"}
+        ]
+      }]
+    });
+    chart.render();
 
     return;
   });
+
+  
+
 })();
